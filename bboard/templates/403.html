@@ -1,0 +1,15 @@
+{% extends 'layout/basic.html' %}
+
+{% block title %}Ошибка 403{% endblock %}
+
+{% block content %}
+<div class="alert alert-info text-center">
+  <h2>Доступ запрещён (403)</h2>
+  <p>У вас недостаточно прав для просмотра этой страницы.</p>
+  {% if user.is_authenticated %}
+    <a href="{% url 'main:index' %}" class="btn btn-primary">На главную</a>
+  {% else %}
+    <a href="{% url 'main:login' %}" class="btn btn-primary">Войти</a>
+  {% endif %}
+</div>
+{% endblock %}

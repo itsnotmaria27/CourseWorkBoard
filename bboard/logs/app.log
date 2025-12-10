@@ -1,0 +1,5 @@
+2025-11-24 15:42:06 [INFO] django.utils.autoreload Watching for file changes with StatReloader
+2025-11-24 15:42:08 [INFO] django.server code 400, message Bad request version ('\x9d\x0eü¸Û\x9ddüÖU\x06\x87\x91àçúH«hi\x00')
+2025-11-24 15:42:08 [ERROR] django.server You're accessing the development server over HTTPS, but it only supports HTTP.
+2025-11-24 15:42:08 [INFO] django.server code 400, message Bad HTTP/0.9 request type ('\x16\x03\x01\x06')
+2025-11-24 15:42:08 [ERROR] django.server You're accessing the development server over HTTPS, but it only supports HTTP.

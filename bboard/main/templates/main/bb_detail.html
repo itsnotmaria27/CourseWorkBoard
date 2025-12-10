@@ -1,0 +1,92 @@
+{% extends 'layout/basic.html' %}
+{% load django_bootstrap5 rating_extras %}
+
+{% block title %}{{ bb.title }} - {{ bb.rubric.name }}{% endblock %}
+
+{% block content %}
+<div class="row mt-3">
+    {% if bb.image %}
+    <div class="col-md-auto">
+        <img src="{{ bb.image.url }}" class="main-image">
+    </div>
+    {% endif %}
+    <div class="col">
+        <h2>{{ bb.title }}</h2>
+        <p>{{ bb.content }}</p>
+        <p class="fw-bold">{{ bb.price }} руб.</p>
+        <p>{{ bb.contacts }}</p>
+        <p class="text-end fst-italic">Добавлено {{ bb.created_at }}</p>
+    </div>
+</div>
+
+<!-- Отображение рейтинга -->
+<div class="card mb-3">
+  <div class="card-body">
+    <h5>Рейтинг</h5>
+    {% if bb.rating_count %}
+      <p>Средняя оценка: {{ bb.average_rating|floatformat:1 }} из 5 ({{ bb.rating_count }} голосов)</p>
+    {% else %}
+      <p>Пока никто не оценил это объявление.</p>
+    {% endif %}
+
+    {% if user.is_authenticated %}
+      {% if user|has_rated:bb %}
+        {% user_rating_score user bb as user_score %}
+        <p>Ваша оценка:
+          <span class="rated-stars">
+            {% for i in "12345" %}
+              {% if forloop.counter <= user_score %}
+                ★
+              {% else %}
+                ☆
+              {% endif %}
+            {% endfor %}
+          </span>
+        </p>
+      {% else %}
+        <form method="post" action="{% url 'main:add_rating' rubric_pk=bb.rubric.pk pk=bb.pk %}">
+          {% csrf_token %}
+          <p>Ваша оценка:</p>
+          <div class="rating-stars">
+            {{ rating_form.score }}
+          </div>
+          <button type="submit" name="rating_submit" class="btn btn-primary btn-sm mt-2">Оценить</button>
+        </form>
+      {% endif %}
+    {% else %}
+      <p><a href="{% url 'main:login' %}">Войдите</a>, чтобы оставить оценку.</p>
+    {% endif %}
+  </div>
+</div>
+
+{% if ais %}
+<div class="d-flex justify-content-between flex-wrap mt-5">
+    {% for ai in ais %}
+    <div class="d-flex justify-content-center align-items-center">
+        <img class="additional-image" src="{{ ai.image.url }}">
+    </div>
+    {% endfor %}
+</div>
+{% endif %}
+
+<p><a href="{% url 'main:rubric_bbs' pk=bb.rubric.pk %}{{ all }}">Назад</a></p>
+
+<h4 class="mt-5">Новый комментарий</h4>
+<form method="post">
+    {% csrf_token %}
+    {% bootstrap_form form layout='horizontal' %}
+    <button type="submit" name="comment_submit" class="btn btn-primary">Добавить</button>
+</form>
+
+{% if comments %}
+<div class="vstack gap-3 mt-5">
+    {% for comment in comments %}
+    <div class="p-2 border">
+        <h5>{{ comment.author }}</h5>
+        <p>{{ comment.content }}</p>
+        <p class="text-end fst-italic">{{ comment.created_at }}</p>
+    </div>
+    {% endfor %}
+</div>
+{% endif %}
+{% endblock %}

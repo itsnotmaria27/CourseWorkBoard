@@ -1,0 +1,42 @@
+header h1 {
+    background: url("bg.jpg") left / auto 100% no-repeat, url("bg.jpg")
+                right / auto 100% no-repeat;
+}
+.root {
+    font-size: larger;
+}
+img.main-image {
+    width: 300px;
+}
+img.additional-image {
+    width: 180px;
+}
+.rating-stars ul {
+  list-style: none;
+  display: flex;
+  margin: 0;
+  padding: 0;
+}
+
+.rating-stars input[type="radio"] {
+  display: none;
+}
+.rating-stars label::before {
+  content: "☆";
+  font-size: 24px;
+  color: #ddd;
+  cursor: pointer;
+}
+.rating-stars input[type="radio"]:checked ~ label::before,
+.rating-stars input[type="radio"]:checked::before,
+.rating-stars label:hover::before,
+.rating-stars label:hover ~ label::before {
+  content: "★";
+  color: gold;
+}
+
+/* Уже поставленный рейтинг — звёзды неактивны, но золотые */
+.rated-stars {
+  font-size: 24px;
+  color: gold;
+}

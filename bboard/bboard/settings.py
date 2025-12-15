@@ -19,7 +19,7 @@ MEDIA_ROOT = BASE_DIR / 'media'
 
 
 # Разрешённые хосты
-ALLOWED_HOSTS = ['158.160.68.51']
+ALLOWED_HOSTS = ['158.160.84.73']
 
 # Разрешённые домены
 #ALLOWED_HOSTS = ['bboard.com', 'www.bboard.com'] 

@@ -14,9 +14,12 @@ LOGS_DIR.mkdir(exist_ok=True)
 SECRET_KEY = 'django-insecure-&xj@+q=tt)*e&k&=#=&07&2-o*u6)#23qi#5wal(%80=(y-8%='
 
 DEBUG = False  # True для разработки
+STATIC_ROOT = BASE_DIR / 'staticfiles'
+MEDIA_ROOT = BASE_DIR / 'media'
+
 
 # Разрешённые хосты
-ALLOWED_HOSTS = ['localhost', '127.0.0.1']
+ALLOWED_HOSTS = ['158.160.68.51']
 
 # Разрешённые домены
 #ALLOWED_HOSTS = ['bboard.com', 'www.bboard.com'] 
